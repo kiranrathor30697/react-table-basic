@@ -1,53 +1,64 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useTable } from 'react-table'
  
 function App() {
-  const data = React.useMemo(
+  let data = useMemo(
     () => [
       {
         col1: 'Kiran',
         col2: 'Rathor',
+        col3: '7098272718'
       },
       {
         col1: 'Anjali',
         col2: 'Rathor',
+        col3: '7664436786'
       },
       {
         col1: 'Rudransh',
         col2: 'Rathor',
+        col3: '8765544376'
       },
     ],
     []
   )
 
-  const columns = React.useMemo(
+  let columns = useMemo(
     () => [
       {
-        Header: 'Column 1',
+        Header: 'Name',
         accessor: 'col1', // accessor is the "key" in the data
       },
       {
-        Header: 'Column 2',
+        Header: 'Surname',
         accessor: 'col2',
+      },
+      {
+        Header: 'Mobile No',
+        accessor: 'col3',
       },
     ],
     []
   )
-  const {
+
+  
+   let tableObject = useTable({ columns, data })
+
+   let  {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data })
+  } = tableObject 
 
   return (
-    <table {...getTableProps()} style={{border: '1px solid #000'}}>
+    <table {...getTableProps()} style={{border: '1px solid #000',margin: '100px auto'}}>
       <thead>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
-              <th {...column.getHeaderProps()} style={{border: '1px solid #000'}}>
+              <th {...column.getHeaderProps()} style={{border: '1px solid #000',padding: '20px'}}>
                 {column.render('Header')}
               </th>
             ))}
@@ -61,7 +72,7 @@ function App() {
             <tr {...row.getRowProps()}>
               {row.cells.map(cell => {
                 return (
-                  <td {...cell.getCellProps()} style={{border: '1px solid #000'}} >
+                  <td {...cell.getCellProps()} style={{border: '1px solid #000',padding: '10px'}} >
                     {cell.render('Cell')}
                   </td>
                 )
